@@ -40,7 +40,6 @@ namespace LH_SVQuestCrewStationDismiss
 
         [HarmonyPatch(typeof(StationQuestSlot), "Setup")]
         [HarmonyPostfix]
-
         private static void AddDismissButton(GameObject ___imageRank1, int questIndex)
         {
             if (___imageRank1.transform.parent.Find("Shoo") == null)
@@ -55,7 +54,6 @@ namespace LH_SVQuestCrewStationDismiss
                 DismissButton.onClick = new Button.ButtonClickedEvent();
                 DismissButton.onClick.AddListener(() =>
                 {
-                    Debug.Log("button!");
                     AccessTools.Method(typeof(DockingUI), "PurchaseStationQuest").Invoke(DockingUIInstance, new object[] { questIndex });
                 });
             }
@@ -65,15 +63,12 @@ namespace LH_SVQuestCrewStationDismiss
         [HarmonyPrefix]
         private static void GetDockingUIPanelRef2(DockingUI __instance, Transform ___academyPanel)
         {
-            Debug.Log("fekkin saved da instance yeh?");
             DockingUIInstance2 = __instance;
             academyPanel = ___academyPanel.gameObject;
         }
 
         [HarmonyPatch(typeof(CrewHireSlot), "Setup")]
         [HarmonyPostfix]
-
-
         private static void AddShooCrewButton(CrewHireSlot __instance)
         {
             if (__instance.transform.Find("Shoo") == null)
@@ -93,9 +88,6 @@ namespace LH_SVQuestCrewStationDismiss
                 });
             }
         }
-
-        // DockingUIInstance2.station.crewForHireIDs.Remove(academyPanel.transform.GetChild(academyPanel.transform.childCount - 1).GetComponent<CrewHireSlot>().crewMember.id);
-
     }
 }
 
